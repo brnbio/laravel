@@ -104,7 +104,7 @@ return [
     |
     */
 
-    'migrations' => 'migrations',
+    'migrations' => 'core_migrations',
 
     /*
     |--------------------------------------------------------------------------
