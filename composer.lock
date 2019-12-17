@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f77955e91739e9605b04c9b29bd5a674",
+    "content-hash": "95bf3c22bfe387b7e9ba39df5979a450",
     "packages": [
         {
             "name": "brnbio/laravel-breadcrumbs",
@@ -190,6 +190,33 @@
             ],
             "description": "Number helper for Laravel framework",
             "time": "2019-10-21T09:33:35+00:00"
+        },
+        {
+            "name": "brnbio/vagrant-homestead",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brnbio/vagrant-homestead.git",
+                "reference": "b4c7898f9407b45711bc695ff4056d7583a25c50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brnbio/vagrant-homestead/zipball/b4c7898f9407b45711bc695ff4056d7583a25c50",
+                "reference": "b4c7898f9407b45711bc695ff4056d7583a25c50",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "laravel homestead vagrant box",
+            "keywords": [
+                "homestead",
+                "laravel",
+                "vagrant"
+            ],
+            "time": "2019-12-17T13:23:32+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1530,22 +1557,22 @@
         },
         {
             "name": "ramsey/uuid",
-            "version": "3.9.1",
+            "version": "3.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "5ac2740e0c8c599d2bbe7f113a939f2b5b216c67"
+                "reference": "7779489a47d443f845271badbdcedfe4df8e06fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/5ac2740e0c8c599d2bbe7f113a939f2b5b216c67",
-                "reference": "5ac2740e0c8c599d2bbe7f113a939f2b5b216c67",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/7779489a47d443f845271badbdcedfe4df8e06fb",
+                "reference": "7779489a47d443f845271badbdcedfe4df8e06fb",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "paragonie/random_compat": "^1 | ^2 | 9.99.99",
-                "php": "^5.4 | ^7",
+                "php": "^5.4 | ^7 | ^8",
                 "symfony/polyfill-ctype": "^1.8"
             },
             "replace": {
@@ -1555,13 +1582,13 @@
                 "codeception/aspect-mock": "^1 | ^2",
                 "doctrine/annotations": "^1.2",
                 "goaop/framework": "1.0.0-alpha.2 | ^1 | ^2.1",
-                "jakub-onderka/php-parallel-lint": "^0.9.0",
-                "mockery/mockery": "^0.9.9",
+                "jakub-onderka/php-parallel-lint": "^1",
+                "mockery/mockery": "^0.9.11 | ^1",
                 "moontoast/math": "^1.1",
                 "paragonie/random-lib": "^2",
                 "php-mock/php-mock-phpunit": "^0.3 | ^1.1",
                 "phpunit/phpunit": "^4.8 | ^5.4 | ^6.5",
-                "squizlabs/php_codesniffer": "^2.3"
+                "squizlabs/php_codesniffer": "^3.5"
             },
             "suggest": {
                 "ext-ctype": "Provides support for PHP Ctype functions",
@@ -1613,7 +1640,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2019-12-01T04:55:27+00:00"
+            "time": "2019-12-17T08:18:51+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -5272,7 +5299,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4"
+        "php": "^7.3"
     },
     "platform-dev": []
 }
