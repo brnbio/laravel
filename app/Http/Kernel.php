@@ -83,12 +83,12 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewarePriority = [
-        Authenticate::class,
-        AuthenticateSession::class,
-        Authorize::class,
-        ShareErrorsFromSession::class,
         StartSession::class,
-        SubstituteBindings::class,
+        ShareErrorsFromSession::class,
+        Authenticate::class,
         ThrottleRequests::class,
+        AuthenticateSession::class,
+        SubstituteBindings::class,
+        Authorize::class,
     ];
 }
