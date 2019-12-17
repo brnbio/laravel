@@ -18,6 +18,7 @@ class CreateCoreUsersTable extends Migration
     {
         Schema::create('core_users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('uuid');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
