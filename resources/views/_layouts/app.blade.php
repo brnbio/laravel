@@ -13,10 +13,6 @@
         @include('_layouts._partials.header')
 
         <div class="content">
-
-            @breadcrumb('Home', '/')
-            @breadcrumbs()
-
             @yield('content')
         </div>
 
