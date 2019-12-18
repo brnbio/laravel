@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Models\User;
+use App\Models\Core\User;
 use Illuminate\Database\Seeder;
 
 /**

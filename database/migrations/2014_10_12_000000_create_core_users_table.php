@@ -25,7 +25,6 @@ class CreateCoreUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-            $table->timestamp('verified_at')->nullable();
         });
     }
 

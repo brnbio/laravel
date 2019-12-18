@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Models\Core;
 
+use App\Models\Model;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Auth\Authenticatable;
@@ -19,7 +20,7 @@ use Illuminate\Support\Str;
 
 /**
  * Class User
- * @package App\Models
+ * @package App\Models\Core
  */
 class User extends Model implements
     AuthenticatableContract,
@@ -37,7 +38,6 @@ class User extends Model implements
     public const ATTRIBUTE_EMAIL = 'email';
     public const ATTRIBUTE_PASSWORD = 'password';
     public const ATTRIBUTE_REMEMBER_TOKEN = 'remember_token';
-    public const ATTRIBUTE_VERIFIED_AT = 'verified_at';
 
     /**
      * @var array
@@ -45,13 +45,6 @@ class User extends Model implements
     protected $hidden = [
         self::ATTRIBUTE_PASSWORD,
         self::ATTRIBUTE_REMEMBER_TOKEN,
-    ];
-
-    /**
-     * @var array
-     */
-    protected $casts = [
-        self::ATTRIBUTE_VERIFIED_AT => 'datetime',
     ];
 
     /**
@@ -118,24 +111,6 @@ class User extends Model implements
     }
 
     /**
-     * @return Carbon
-     */
-    public function getVerfiedAt(): Carbon
-    {
-        return $this->getAttribute(self::ATTRIBUTE_VERIFIED_AT);
-    }
-
-    /**
-     * @return User
-     */
-    public function setVerifiedAt(): User
-    {
-        $this->setAttribute(self::ATTRIBUTE_VERIFIED_AT, now());
-
-        return $this;
-    }
-
-    /**
      * @param array $attributes
      * @return $this
      */
@@ -151,10 +126,6 @@ class User extends Model implements
 
         if (!empty($attributes[self::ATTRIBUTE_PASSWORD])) {
             $this->setPassword($attributes[self::ATTRIBUTE_PASSWORD]);
-        }
-
-        if (!empty($attributes[self::ATTRIBUTE_VERIFIED_AT])) {
-            $this->setVerifiedAt();
         }
 
         return $this;
