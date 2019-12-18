@@ -30,6 +30,8 @@ sudo update-alternatives --set phar /usr/bin/phar$PHP_VERSION
 sudo update-alternatives --set phar.phar /usr/bin/phar.phar$PHP_VERSION
 
 # aliases
+echo "alias h=\"cd ~\"" >> /home/vagrant/.bash_aliases
+echo "alias www=\"cd /var/www/html\"" >> /home/vagrant/.bash_aliases
 echo "alias g=\"git\"" >> /home/vagrant/.bash_aliases
 echo "alias gs=\"git status\"" >> /home/vagrant/.bash_aliases
 echo "alias pa=\"php artisan\"" >> /home/vagrant/.bash_aliases

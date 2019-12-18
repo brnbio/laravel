@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -117,6 +118,24 @@ class User extends Model implements
     }
 
     /**
+     * @return Carbon
+     */
+    public function getVerfiedAt(): Carbon
+    {
+        return $this->getAttribute(self::ATTRIBUTE_VERIFIED_AT);
+    }
+
+    /**
+     * @return User
+     */
+    public function setVerifiedAt(): User
+    {
+        $this->setAttribute(self::ATTRIBUTE_VERIFIED_AT, now());
+
+        return $this;
+    }
+
+    /**
      * @param array $attributes
      * @return $this
      */
@@ -132,6 +151,10 @@ class User extends Model implements
 
         if (!empty($attributes[self::ATTRIBUTE_PASSWORD])) {
             $this->setPassword($attributes[self::ATTRIBUTE_PASSWORD]);
+        }
+
+        if (!empty($attributes[self::ATTRIBUTE_VERIFIED_AT])) {
+            $this->setVerifiedAt();
         }
 
         return $this;
