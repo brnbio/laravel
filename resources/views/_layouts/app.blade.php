@@ -1,3 +1,5 @@
+@breadcrumb(__('Home'), route('home'), ['prepend' => true])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -13,7 +15,11 @@
         @include('_layouts._partials.header')
 
         <div class="content">
-            @yield('content')
+            <div class="container-fluid">
+                @breadcrumbs
+                @include('flash::message')
+                @yield('content')
+            </div>
         </div>
 
         @include('_layouts._partials.footer')

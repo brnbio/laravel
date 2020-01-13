@@ -8,6 +8,7 @@ sudo rm /etc/nginx/sites-available/default
 echo "server {
 	listen 80;
 	listen [::]:80;
+	server_name _;
 	root /var/www/html/public/;
 	index index.php;
 	location / {

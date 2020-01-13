@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models\Core;
 
 use App\Models\Model;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;

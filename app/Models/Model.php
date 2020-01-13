@@ -83,7 +83,7 @@ class Model extends BaseModel
     /**
      * @return string
      */
-    public function getCreatedAtColumn()
+    public function getCreatedAtColumn(): string
     {
         return self::ATTRIBUTE_CREATED_AT;
     }
@@ -91,8 +91,16 @@ class Model extends BaseModel
     /**
      * @return string
      */
-    public function getUpdatedAtColumn()
+    public function getUpdatedAtColumn(): string
     {
         return self::ATTRIBUTE_UPDATED_AT;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return self::ATTRIBUTE_UUID;
     }
 }
