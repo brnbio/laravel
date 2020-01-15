@@ -8,6 +8,7 @@ use App\Console\Commands\GenerateCommand\ControllerCreator;
 use App\Console\Commands\GenerateCommand\MigrationCreator;
 use App\Console\Commands\GenerateCommand\ModelCreator;
 use App\Console\Commands\GenerateCommand\ViewCreator;
+use Dbml\Dbml;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Throwable;
@@ -31,60 +32,87 @@ class GenerateCommand extends Command
     protected $description = 'Generate complete app from db schema';
 
     /**
+     * @var array
+     */
+    protected $skipTables = [
+        'core_users',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $skipColumns = [
+        'id',
+        'uuid',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
      * @return void
      * @throws Throwable
      */
     public function handle(): void
     {
-        $tables = $this->getConfig();
+        $tables = $this->getConfig()->tables;
         foreach ($tables as $k => $table) {
-            $this->line('[' . ($k + 1) . '/' . count($tables) . '] ' . $table['name']);
-            $this->generate($table);
+
+            $this->line('[' . ($k + 1) . '/' . count($tables) . '] ' . $table->name);
+
+            // -- skip tables and remove skipped columns
+            if (in_array($table->name, $this->skipTables)) {
+                $this->info('Skipped!');
+            } else {
+                foreach ($table->columns as $k => $column) {
+                    if (in_array($column->name, $this->skipColumns)) {
+                        unset($table->columns[$k]);
+                    }
+                }
+                $this->generate($table);
+            }
         }
 
         $this->info(PHP_EOL . 'Done!');
     }
 
     /**
-     * @return array
+     * @return Dbml
      */
-    private function getConfig(): array
+    private function getConfig(): Dbml
     {
-        $filename = base_path($this->option('file') ?? 'db.json');
+        $filename = base_path($this->option('file') ?? 'schema.dbml');
         if (!file_exists($filename)) {
             $this->error('Config file not found.');
             die();
         }
-        $config = file_get_contents($filename);
 
-        return json_decode($config, true);
+        return new Dbml($filename);
     }
 
     /**
-     * @param array $table
+     * @param Dbml\Model\Table $table
      * @return void
      * @throws Throwable
      */
-    private function generate(array $table): void
+    private function generate(Dbml\Model\Table $table): void
     {
-        $parts = explode('_', $table['name']);
+        $parts = explode('_', $table->name);
         $model = Str::singular(ucfirst(array_pop($parts)));
         $namespace = ucwords(implode('\\', $parts), '\\');
 
         // -- database
-        $this->generateMigration($table['name'], $table['attributes']);
+        $this->generateMigration($table->name, $table->columns);
 
         // -- mvc
-        $this->generateModel('App\Models\\' . $namespace . '\\' . $model, $table['name'], $table['attributes']);
+        $this->generateModel('App\Models\\' . $namespace . '\\' . $model, $table->name, $table->columns);
         $this->generateController($model, $namespace, ['index', 'create', 'details', 'update', 'delete']);
-        $this->generateViews($model, $namespace, ['index', 'details', 'create', 'update'], $table['attributes']);
+        $this->generateViews($model, $namespace, ['index', 'details', 'create', 'update'], $table->columns);
 
         /**
          * nice to have:
          * - associations
          * - factories
          * - validations
-         * - change db.json to DSL (dbdiagram.io)
          */
     }
 
@@ -92,14 +120,14 @@ class GenerateCommand extends Command
      * TODO: search for existing migration
      *
      * @param string $tableName
-     * @param array $attributes
+     * @param Dbml\Model\Table\Column[] $columns
      * @return void
      * @throws Throwable
      */
-    private function generateMigration(string $tableName, array $attributes): void
+    private function generateMigration(string $tableName, array $columns): void
     {
         $creator = new MigrationCreator();
-        $file = $creator->create($tableName, $attributes);
+        $file = $creator->create($tableName, $columns);
 
         $this->info('Created migration: ' . $file);
     }
@@ -107,14 +135,14 @@ class GenerateCommand extends Command
     /**
      * @param string $name
      * @param string $tableName
-     * @param array $attributes
+     * @param Dbml\Model\Table\Column[] $columns
      * @return void
      * @throws Throwable
      */
-    private function generateModel(string $name, string $tableName, array $attributes): void
+    private function generateModel(string $name, string $tableName, array $columns): void
     {
         $creator = new ModelCreator();
-        $file = $creator->create($name, $tableName, $attributes);
+        $file = $creator->create($name, $tableName, $columns);
 
         $this->info('Created model: ' . $file);
     }
@@ -139,15 +167,15 @@ class GenerateCommand extends Command
      * @param string $model
      * @param string $namespace
      * @param array $actions
-     * @param array $attributes
+     * @param Dbml\Model\Table\Column[] $columns
      * @return void
      * @throws Throwable
      */
-    private function generateViews(string $model, string $namespace, array $actions, array $attributes): void
+    private function generateViews(string $model, string $namespace, array $actions, array $columns): void
     {
         $creator = new ViewCreator();
         foreach ($actions as $action) {
-            $file = $creator->create($model, $namespace, $action, $attributes);
+            $file = $creator->create($model, $namespace, $action, $columns);
             $this->info('Created view: ' . $file);
         }
     }

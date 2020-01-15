@@ -8,8 +8,8 @@
     <dl>
         <dt>{!! "{" . "{ __('Uuid') }" . "}" !!}</dt>
         <dd>{!! '{' . '{ $' . $var . '->getUuid() }' . '}' !!}</dd>
-        @foreach ($attributes as $attribute)<dt>{!! '{' . "{ __('" . ucfirst(\App\Support\Str::camel($attribute['name'])) . "') }" . "}" !!}</dt>
-        <dd>{!! '{' . '{ $' . $var . '->get' . ucfirst(\App\Support\Str::camel($attribute['name'])) . '() }' . '}' !!}</dd>
+        @foreach ($columns as $column)<dt>{!! '{' . "{ __('" . ucfirst(\App\Support\Str::camel($column->name)) . "') }" . "}" !!}</dt>
+        <dd>{!! '{' . '{ $' . $var . '->get' . ucfirst(\App\Support\Str::camel($column->name)) . '() }' . '}' !!}</dd>
         @endforeach<dt>{!! '{' . '{ __(\'Created\') }' . '}' !!}</dt>
         <dd>{!! '{' . '{ $' . $var . '->getCreatedAt() }' . '}' !!}</dd>
     </dl>

@@ -21,12 +21,22 @@ class {{ $className }} extends Migration
             function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->uuid('uuid');
-                @foreach ($attributes as $attribute)<?php
-                    if ($attribute['type'] === 'string') {
-                        echo '$table->string(\'' . $attribute['name'] . '\')';
+                @foreach ($columns as $column)<?php
+                    if (in_array($column->name, ['id', 'uuid'])) {
+                        continue;
                     }
-                    if( !empty($attribute['null'])) {
+                    // TODO: implement other types
+                    if ($column->type === 'int') {
+                        echo '$table->integer(\'' . $column->name . '\')';
+                    }
+                    else {
+                        echo '$table->string(\'' . $column->name . '\')';
+                    }
+                    if ($column->null) {
                         echo '->nullable()';
+                    }
+                    if (!empty($column->default)) {
+                        echo '->default(\'' . trim($column->default) . '\')';
                     }
                 ?>;
                 @endforeach$table->timestamps();

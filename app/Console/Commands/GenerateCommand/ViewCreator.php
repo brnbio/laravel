@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Console\Commands\GenerateCommand;
 
 use App\Support\Str;
+use Dbml\Dbml\Model\Table\Column;
 use Exception;
-use PHPUnit\Framework\Constraint\DirectoryExists;
 use Throwable;
 
 /**
@@ -19,22 +19,22 @@ class ViewCreator
      * @param string $model
      * @param string $namespace
      * @param string $action
-     * @param array $attributes
+     * @param Column[] $columns
      * @return string
      * @throws Throwable
      */
-    public function create(string $model, string $namespace, string $action, array $attributes): string
+    public function create(string $model, string $namespace, string $action, array $columns): string
     {
         $controllerNamespace = $namespace . '\\' . Str::plural($model);
         $route = Str::lower(Str::replace(['\\' => '.'], $controllerNamespace));
         $content = view(
             'stubs.views.' . $action,
             [
-                'model'      => $model,
-                'var'        => Str::snake($model),
-                'vars'       => Str::snake(Str::plural($model)),
-                'route'      => $route,
-                'attributes' => $attributes,
+                'model'   => $model,
+                'var'     => Str::snake($model),
+                'vars'    => Str::snake(Str::plural($model)),
+                'route'   => $route,
+                'columns' => $columns,
             ]
         );
 

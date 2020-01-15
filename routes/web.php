@@ -3,9 +3,8 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Core;
-use App\Http\Controllers\Hcm;
+use App\Http\Controllers\Crm;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get ('/', Core\HomeController::class)->name('home');
 

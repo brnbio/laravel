@@ -6,7 +6,7 @@
     <h1>{!! "{" . "{ __('Create') }" . "}" !!}</h1>
 
     {!! "{" . "{ form()->create($" . $var . ") }" . "}" !!}
-    @foreach ($attributes as $attribute){!! "{" . "{ form()->control('" . $attribute['name'] . "') }" . "}" !!}
+    @foreach ($columns as $column){!! "{" . "{ form()->control('" . $column->name . "') }" . "}" !!}
     @endforeach{!! "{" . "{ form()->submit(__('Save'), ['class' => 'btn btn-primary']) }" . "}" !!}
     {!! "{" . "{ html()->link(route('" . $route . ".index'), __('Cancel'), ['class' => 'btn btn-light']) }" . "}" !!}
     {!! "{" . "{ form()->end() }" . "}" !!}
