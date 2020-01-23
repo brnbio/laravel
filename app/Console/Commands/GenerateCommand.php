@@ -14,18 +14,17 @@ use App\Console\Commands\GenerateCommand\ViewCreator;
 use Dbml\Dbml;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Composer;
 use Throwable;
 
 /**
  * Class GenerateCommand
  * @package App\Console\Commands
- * TODO: dumpautoload danach via skript
  * TODO: bei den gettern einen type cast davor, wenn es int/bool/float ist
  * TODO: routes > usage einfügen bei neuen modulen
  * TODO: seeder eintragen in DatabaseSeeder.php
  * TODO: vor dem schreiben prüfen, ob datei bereits existiert oder content wie z.B. bei den Routen, schon drin steht
  * TODO: optionen ergänzen (z.B: --force=überschreiben --only=models,controllers,seeder
- * TODO: nach generation gleich migrate + seed aufrufen
  * TODO: getter bei boolean felder mit isVar statt getVar
  * TODO: nice to have: array alignment
  */
@@ -44,6 +43,11 @@ class GenerateCommand extends Command
     protected $description = 'Generate complete app from db schema';
 
     /**
+     * @var Composer
+     */
+    protected $composer;
+
+    /**
      * @var array
      */
     protected $skipTables = [
@@ -59,6 +63,17 @@ class GenerateCommand extends Command
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * GenerateCommand constructor.
+     * @param Composer $composer
+     * @return void
+     */
+    public function __construct(Composer $composer)
+    {
+        parent::__construct();
+        $this->composer = $composer;
+    }
 
     /**
      * @return void
@@ -82,7 +97,13 @@ class GenerateCommand extends Command
                 }
                 $this->generate($table);
             }
+            $this->line(PHP_EOL);
         }
+
+        $this->line('Completion');
+        $this->info('composer dumpautoload --optimize');
+        $this->composer->dumpOptimized();
+        $this->call('migrate:fresh', ['--seed' => true]);
 
         $this->info(PHP_EOL . 'Done!');
     }
