@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\GenerateCommand;
 
-use App\Support\Str;
-use Dbml\Dbml\Model\Table\Column;
+use Dbml\Dbml\Model\Table;
 use Exception;
 use Throwable;
 
@@ -17,12 +16,11 @@ class ModelCreator
 {
     /**
      * @param string $name
-     * @param string $tableName
-     * @param Column[] $columns
+     * @param Table $table
      * @return string
      * @throws Throwable
      */
-    public function create(string $name, string $tableName, array $columns): string
+    public function create(string $name, Table $table): string
     {
         $className = trim(class_basename($name));
         $content = view(
@@ -30,8 +28,7 @@ class ModelCreator
             [
                 'className' => $className,
                 'namespace' => trim(str_replace('\\' . $className, '', $name)),
-                'table'     => $tableName,
-                'columns'   => $columns,
+                'table'     => $table,
             ]
         );
 

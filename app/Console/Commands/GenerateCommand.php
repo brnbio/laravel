@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Console\Commands\GenerateCommand\ControllerCreator;
+use App\Console\Commands\GenerateCommand\FactoryCreator;
+use App\Console\Commands\GenerateCommand\Helper;
 use App\Console\Commands\GenerateCommand\MigrationCreator;
 use App\Console\Commands\GenerateCommand\ModelCreator;
+use App\Console\Commands\GenerateCommand\SeederCreator;
 use App\Console\Commands\GenerateCommand\ViewCreator;
 use Dbml\Dbml;
+use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use Throwable;
 
 /**
@@ -19,6 +22,8 @@ use Throwable;
  */
 class GenerateCommand extends Command
 {
+    public const ENTITY_COUNT = 25;
+
     /**
      * TODO: add options for model only, migration only etc.
      *
@@ -77,6 +82,7 @@ class GenerateCommand extends Command
 
     /**
      * @return Dbml
+     * @throws Exception
      */
     private function getConfig(): Dbml
     {
@@ -96,23 +102,20 @@ class GenerateCommand extends Command
      */
     private function generate(Dbml\Model\Table $table): void
     {
-        $parts = explode('_', $table->name);
-        $model = Str::singular(ucfirst(array_pop($parts)));
-        $namespace = ucwords(implode('\\', $parts), '\\');
+        $info = Helper::getClassInfo($table->name);
 
         // -- database
-        $this->generateMigration($table->name, $table->columns);
+        #$this->generateMigration($table->name, $table->columns);
+        #$this->generateFactory($info['model'], $info['namespace'], $table->columns);
+        $this->generateSeeder($info['model'], $info['namespace']);
 
         // -- mvc
-        $this->generateModel('App\Models\\' . $namespace . '\\' . $model, $table->name, $table->columns);
-        $this->generateController($model, $namespace, ['index', 'create', 'details', 'update', 'delete']);
-        $this->generateViews($model, $namespace, ['index', 'details', 'create', 'update'], $table->columns);
-
+        #$this->generateModel('App\Models\\' . $info['namespace'] . '\\' . $info['model'], $table);
+        #$this->generateController($model, $namespace, ['index', 'create', 'details', 'update', 'delete']);
+        #$this->generateViews($model, $namespace, ['index', 'details', 'create', 'update'], $table->columns);
         /**
          * nice to have:
-         * - associations
-         * - factories
-         * - validations
+         * - factories + seeder
          */
     }
 
@@ -134,15 +137,14 @@ class GenerateCommand extends Command
 
     /**
      * @param string $name
-     * @param string $tableName
-     * @param Dbml\Model\Table\Column[] $columns
+     * @param Dbml\Model\Table $table
      * @return void
      * @throws Throwable
      */
-    private function generateModel(string $name, string $tableName, array $columns): void
+    private function generateModel(string $name, Dbml\Model\Table $table): void
     {
         $creator = new ModelCreator();
-        $file = $creator->create($name, $tableName, $columns);
+        $file = $creator->create($name, $table);
 
         $this->info('Created model: ' . $file);
     }
@@ -178,5 +180,34 @@ class GenerateCommand extends Command
             $file = $creator->create($model, $namespace, $action, $columns);
             $this->info('Created view: ' . $file);
         }
+    }
+
+    /**
+     * @param string $model
+     * @param string $namespace
+     * @param Dbml\Model\Table\Column[] $columns
+     * @return void
+     * @throws Throwable
+     */
+    private function generateFactory(string $model, string $namespace, array $columns): void
+    {
+        $creator = new FactoryCreator();
+        $file = $creator->create($model, $namespace, $columns);
+
+        $this->info('Created factory: ' . $file);
+    }
+
+    /**
+     * @param string $model
+     * @param string $namespace
+     * @return void
+     * @throws Throwable
+     */
+    private function generateSeeder(string $model, string $namespace): void
+    {
+        $creator = new SeederCreator();
+        $file = $creator->create($model, $namespace);
+
+        $this->info('Created seeder: ' . $file);
     }
 }
