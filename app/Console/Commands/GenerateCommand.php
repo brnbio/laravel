@@ -105,18 +105,15 @@ class GenerateCommand extends Command
         $info = Helper::getClassInfo($table->name);
 
         // -- database
-        #$this->generateMigration($table->name, $table->columns);
-        #$this->generateFactory($info['model'], $info['namespace'], $table->columns);
+        $this->generateMigration($table->name, $table->columns);
+        $this->generateFactory($info['model'], $info['namespace'], $table->columns);
         $this->generateSeeder($info['model'], $info['namespace']);
 
         // -- mvc
-        #$this->generateModel('App\Models\\' . $info['namespace'] . '\\' . $info['model'], $table);
-        #$this->generateController($model, $namespace, ['index', 'create', 'details', 'update', 'delete']);
-        #$this->generateViews($model, $namespace, ['index', 'details', 'create', 'update'], $table->columns);
-        /**
-         * nice to have:
-         * - factories + seeder
-         */
+        $this->generateModel('App\Models\\' . $info['namespace'] . '\\' . $info['model'], $table);
+        $this->generateController($info['model'], $info['namespace'], ['index', 'create', 'details', 'update', 'delete']);
+        $this->generateViews($info['model'], $info['namespace'], ['index', 'details', 'create', 'update'], $table->columns);
+
     }
 
     /**
