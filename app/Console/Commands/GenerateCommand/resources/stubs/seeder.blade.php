@@ -20,6 +20,6 @@ class {{ Str::plural($model) }}Seeder extends Seeder
      */
     public function run(): void
     {
-        factory({{ $modelNamespace }}::class, {{ GenerateCommand::ENTITY_COUNT }})->create();
+        factory({{ $model }}::class, {{ GenerateCommand::ENTITY_COUNT }})->create();
     }
 }

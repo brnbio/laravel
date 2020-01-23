@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\GenerateCommand;
 
+use App\Support\Str;
 use Dbml\Dbml\Model\Table\Column;
 use Exception;
 use Throwable;
@@ -32,19 +33,12 @@ class FactoryCreator
             ]
         );
 
+
         $filename = database_path(
-            'factories' . DIRECTORY_SEPARATOR . str_replace(
-                '\\',
-                DIRECTORY_SEPARATOR,
-                $namespace
-            ) . DIRECTORY_SEPARATOR . $model . 'Factory.php'
+            'factories' .
+            DIRECTORY_SEPARATOR .
+            ucfirst(Str::camel(str_replace('\\', '_', $namespace))) . $model . 'Factory.php'
         );
-
-        $targetDir = dirname($filename);
-        if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0755, true);
-        }
-
         if (!file_put_contents($filename, $content->render())) {
             throw new Exception('Can\'t write factory file!');
         }

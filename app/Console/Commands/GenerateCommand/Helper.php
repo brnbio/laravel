@@ -34,13 +34,32 @@ class Helper
     public static function getPhpDataType(string $mysqlDataType): string
     {
         switch ($mysqlDataType) {
+
+            case 'int':
             case 'integer':
             case 'tinyint':
+            case 'smallint':
+            case 'mediumint':
+            case 'longint':
                 return 'int';
+                break;
+
+            case 'double':
+            case 'float':
+                return 'float';
+                break;
+
             case 'date':
             case 'datetime':
             case 'time':
+            case 'timestamp':
                 return 'Carbon';
+                break;
+
+            case 'boolean':
+                return 'bool';
+                break;
+
         }
 
         return 'string';
@@ -54,39 +73,62 @@ class Helper
     {
         $columnName = str_replace('_', '', $column->name);
 
+        // -- faker by column name
         switch ($columnName) {
+
             case 'email':
-                return $column->unique ? 'unique()->safeEmail' : 'email';
+                return $column->unique ? '$faker->unique()->safeEmail' : '$faker->email';
                 break;
+
             case 'firstname':
-                return 'firstName';
+                return '$faker->firstName';
                 break;
+
             case 'lastname':
-                return 'lastName';
+                return '$faker->lastName';
                 break;
+
         }
 
+        // -- foreign key faking
         if (strpos($column->name, '_id')) {
-            return 'numberBetween(0, ' . (GenerateCommand::ENTITY_COUNT - 1) . ')';
+            return '$faker->numberBetween(1, ' . GenerateCommand::ENTITY_COUNT . ')';
         }
 
+        // -- faker by column type
         switch ($column->type) {
+
+            case 'boolean':
+                return '$faker->boolean';
+                break;
+
             case 'int':
             case 'tinyint':
             case 'integer':
-                return 'randomDigit';
+                return '$faker->randomDigit';
                 break;
+
+            case 'tinytext':
             case 'text':
-                return 'words';
+            case 'mediumtext':
+            case 'longtext':
+                return '$faker->text';
                 break;
+
+            case 'double':
             case 'float':
-                return 'randomFloat(4)';
+                return '$faker->randomFloat(4, 0, 1000)';
                 break;
+
             case 'date':
-                return 'date()';
+            case 'datetime':
+            case 'time':
+            case 'timestamp':
+                return 'new Carbon($faker->date())';
                 break;
+
         }
 
-        return 'word';
+        return '$faker->word';
     }
 }

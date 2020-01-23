@@ -19,14 +19,21 @@ use Throwable;
 /**
  * Class GenerateCommand
  * @package App\Console\Commands
+ * TODO: dumpautoload danach via skript
+ * TODO: bei den gettern einen type cast davor, wenn es int/bool/float ist
+ * TODO: routes > usage einfügen bei neuen modulen
+ * TODO: seeder eintragen in DatabaseSeeder.php
+ * TODO: vor dem schreiben prüfen, ob datei bereits existiert oder content wie z.B. bei den Routen, schon drin steht
+ * TODO: optionen ergänzen (z.B: --force=überschreiben --only=models,controllers,seeder
+ * TODO: nach generation gleich migrate + seed aufrufen
+ * TODO: getter bei boolean felder mit isVar statt getVar
+ * TODO: nice to have: array alignment
  */
 class GenerateCommand extends Command
 {
     public const ENTITY_COUNT = 25;
 
     /**
-     * TODO: add options for model only, migration only etc.
-     *
      * @var string
      */
     protected $signature = 'generate {--file= : Config file}';
@@ -68,9 +75,9 @@ class GenerateCommand extends Command
             if (in_array($table->name, $this->skipTables)) {
                 $this->info('Skipped!');
             } else {
-                foreach ($table->columns as $k => $column) {
+                foreach ($table->columns as $i => $column) {
                     if (in_array($column->name, $this->skipColumns)) {
-                        unset($table->columns[$k]);
+                        unset($table->columns[$i]);
                     }
                 }
                 $this->generate($table);
@@ -117,8 +124,6 @@ class GenerateCommand extends Command
     }
 
     /**
-     * TODO: search for existing migration
-     *
      * @param string $tableName
      * @param Dbml\Model\Table\Column[] $columns
      * @return void

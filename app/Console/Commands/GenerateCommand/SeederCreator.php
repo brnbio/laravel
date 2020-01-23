@@ -32,18 +32,10 @@ class SeederCreator
         );
 
         $filename = database_path(
-            'seeds' . DIRECTORY_SEPARATOR . str_replace(
-                '\\',
-                DIRECTORY_SEPARATOR,
-                $namespace
-            ) . DIRECTORY_SEPARATOR . Str::plural($model) . 'Seeder.php'
+            'seeds' .
+            DIRECTORY_SEPARATOR .
+            ucfirst(Str::camel(str_replace('\\', '_', $namespace))) . Str::plural($model) . 'Seeder.php'
         );
-
-        $targetDir = dirname($filename);
-        if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0755, true);
-        }
-
         if (!file_put_contents($filename, $content->render())) {
             throw new Exception('Can\'t write seeder file!');
         }
