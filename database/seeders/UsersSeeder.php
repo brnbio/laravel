@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 /**
- * Class DatabaseSeeder
+ * Class UsersSeeder
  *
  * @package Database\Seeders
  */
-class DatabaseSeeder extends Seeder
+class UsersSeeder extends Seeder
 {
     /**
      * @return void
      */
     public function run(): void
     {
-        $this->call([
-            UsersSeeder::class,
-        ]);
+        User::factory()->count(10)->create();
     }
 }
