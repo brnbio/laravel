@@ -11,11 +11,17 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * Class Model
- * @package App\Models
+ *
+ * @package App
+ * @property int $id
+ * @property string $uuid
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Model extends BaseModel
 {
     public const TABLE = '';
+
     public const ATTRIBUTE_ID = 'id';
     public const ATTRIBUTE_UUID = 'uuid';
     public const ATTRIBUTE_CREATED_AT = 'created_at';
@@ -26,11 +32,7 @@ class Model extends BaseModel
      */
     public function getTable(): string
     {
-        if (empty(static::TABLE)) {
-            return parent::getTable();
-        }
-
-        return static::TABLE;
+        return static::TABLE ?: parent::getTable();
     }
 
     /**
@@ -46,54 +48,6 @@ class Model extends BaseModel
         }
 
         return parent::save($options);
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->getAttribute(self::ATTRIBUTE_ID);
-    }
-
-    /**
-     * @return string
-     */
-    public function getUuid(): string
-    {
-        return $this->getAttribute(self::ATTRIBUTE_UUID);
-    }
-
-    /**
-     * @return Carbon
-     */
-    public function getCreatedAt(): Carbon
-    {
-        return $this->getAttribute(self::ATTRIBUTE_CREATED_AT);
-    }
-
-    /**
-     * @return Carbon
-     */
-    public function getUpdatedAt(): Carbon
-    {
-        return $this->getAttribute(self::ATTRIBUTE_UPDATED_AT);
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreatedAtColumn(): string
-    {
-        return self::ATTRIBUTE_CREATED_AT;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUpdatedAtColumn(): string
-    {
-        return self::ATTRIBUTE_UPDATED_AT;
     }
 
     /**
