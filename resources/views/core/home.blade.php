@@ -1,4 +1,4 @@
-@extends('_layouts.app')
+@extends('_layouts.default.app')
 @section('content')
 
     <div class="d-flex justify-content-center align-items-center full-height">
