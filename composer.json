@@ -9,6 +9,7 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
+        "ext-pdo": "*",
         "brnbio/laravel-breadcrumbs": "^1.0",
         "brnbio/laravel-form": "^1.2",
         "brnbio/laravel-html": "^1.1",
