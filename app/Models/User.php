@@ -15,11 +15,11 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
  * Class User
+ *
  * @package App\Models\Core
  */
 class User extends Model implements
@@ -42,7 +42,18 @@ class User extends Model implements
     public const ATTRIBUTE_REMEMBER_TOKEN = 'remember_token';
 
     /**
-     * @var array
+     * @var string[]
+     */
+    protected $fillable = [
+        self::ATTRIBUTE_NAME,
+        self::ATTRIBUTE_EMAIL,
+        self::ATTRIBUTE_EMAIL_VERFIFIED_AT,
+        self::ATTRIBUTE_PASSWORD,
+        self::ATTRIBUTE_REMEMBER_TOKEN,
+    ];
+
+    /**
+     * @var string[]
      */
     protected $hidden = [
         self::ATTRIBUTE_PASSWORD,

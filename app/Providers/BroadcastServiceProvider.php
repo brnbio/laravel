@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Class BroadcastServiceProvider
+ *
  * @package App\Providers
  */
 class BroadcastServiceProvider extends ServiceProvider

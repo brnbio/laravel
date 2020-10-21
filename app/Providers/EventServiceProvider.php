@@ -10,6 +10,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 
 /**
  * Class EventServiceProvider
+ *
  * @package App\Providers
  */
 class EventServiceProvider extends ServiceProvider
@@ -22,15 +23,4 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
     ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot(): void
-    {
-        parent::boot();
-        //
-    }
 }

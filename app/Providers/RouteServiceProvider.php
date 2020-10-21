@@ -9,24 +9,11 @@ use Illuminate\Support\Facades\Route;
 
 /**
  * Class RouteServiceProvider
+ *
  * @package App\Providers
  */
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * @var string
-     */
-    protected $namespace = '';
-
-    /**
-     * @return void
-     */
-    public function boot(): void
-    {
-        parent::boot();
-        //
-    }
-
     /**
      * @return void
      */
@@ -42,7 +29,6 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes(): void
     {
         Route::middleware('web')
-            ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
     }
 
@@ -53,7 +39,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('api')
             ->middleware('api')
-            ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
     }
 }
