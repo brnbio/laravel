@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use {{ namespacedUserModel }};
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ */
+class {{ class }}
+{
+    use HandlesAuthorization;
+
+    /**
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+}

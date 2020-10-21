@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Relations\Pivot;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ */
+class {{ class }} extends Pivot
+{
+    //
+}

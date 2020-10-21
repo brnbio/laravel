@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Core\Users;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\View\View;
 
@@ -19,7 +20,7 @@ class LoginController extends Controller
     /**
      * @return View
      */
-    public function showLoginForm(): View
+    public function showLoginForm(): Renderable
     {
         return view('core.users.login');
     }

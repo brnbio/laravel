@@ -1,0 +1,25 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ */
+class {{ class }} extends JsonResource
+{
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function toArray(Request $request): array
+    {
+        return parent::toArray($request);
+    }
+}

@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Illuminate\Console\Command;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ */
+class {{ class }} extends Command
+{
+    /**
+     * @var string
+     */
+    protected $signature = '{{ command }}';
+
+    /**
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * @return int
+     */
+    public function handle(): int
+    {
+        //
+
+        return 0;
+    }
+}

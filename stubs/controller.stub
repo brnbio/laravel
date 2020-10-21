@@ -1,0 +1,80 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use App\Controller;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * Class {{ class }}
+ *
+ * @package {{ namespace }}
+ */
+class {{ class }} extends Controller
+{
+    /**
+     * @return Renderable
+     */
+    public function index(): Renderable
+    {
+        return view('');
+    }
+
+    /**
+     * @return Renderable
+     */
+    public function create(): Renderable
+    {
+        return view('');
+    }
+
+    /**
+     * @param Request  $request
+     * @return Response
+     */
+    public function store(Request $request): Response
+    {
+        //
+    }
+
+    /**
+     * @param int $id
+     * @return Renderable
+     */
+    public function show($id): Renderable
+    {
+        return view('', compact(''));
+    }
+
+    /**
+     * @param int $id
+     * @return Renderable
+     */
+    public function edit($id)
+    {
+        return view('', compact(''));
+    }
+
+    /**
+     * @param Request  $request
+     * @param int $id
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * @param int $id
+     * @return Response
+     */
+    public function destroy($id): Response
+    {
+        //
+    }
+}

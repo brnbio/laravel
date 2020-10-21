@@ -1,0 +1,29 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+/**
+ * Class {{ class }}
+ */
+class {{ class }} extends Migration
+{
+    /**
+     * @return void
+     */
+    public function up(): void
+    {
+        //
+    }
+
+    /**
+     * @return void
+     */
+    public function down(): void
+    {
+        //
+    }
+}
