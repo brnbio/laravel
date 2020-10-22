@@ -15,12 +15,18 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 /**
  * Class User
  *
  * @package App\Models\Core
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $remember_token
+ * @property Carbon|null $email_verified_at
  */
 class User extends Model implements
     AuthenticatableContract,
@@ -37,7 +43,7 @@ class User extends Model implements
     public const TABLE = 'core_users';
     public const ATTRIBUTE_NAME = 'name';
     public const ATTRIBUTE_EMAIL = 'email';
-    public const ATTRIBUTE_EMAIL_VERFIFIED_AT = 'verified_at';
+    public const ATTRIBUTE_EMAIL_VERIFIED_AT = 'email_verified_at';
     public const ATTRIBUTE_PASSWORD = 'password';
     public const ATTRIBUTE_REMEMBER_TOKEN = 'remember_token';
 
@@ -47,7 +53,7 @@ class User extends Model implements
     protected $fillable = [
         self::ATTRIBUTE_NAME,
         self::ATTRIBUTE_EMAIL,
-        self::ATTRIBUTE_EMAIL_VERFIFIED_AT,
+        self::ATTRIBUTE_EMAIL_VERIFIED_AT,
         self::ATTRIBUTE_PASSWORD,
         self::ATTRIBUTE_REMEMBER_TOKEN,
     ];

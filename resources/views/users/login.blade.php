@@ -1,14 +1,12 @@
-@extends('_layouts.app')
+@extends('_layouts.default.app')
 @section('content')
 
-    <div class="d-flex justify-content-center align-items-center full-height">
-        <div>
-            {{ form()->create() }}
-            {{ form()->control('email', ['label' => false, 'placeholder' => 'E-Mail address']) }}
-            {{ form()->control('password', ['label' => false, 'placeholder' => 'Password']) }}
-            {{ form()->submit('Login', ['class' => 'btn btn-primary btn-block']) }}
-            {{ form()->end() }}
-        </div>
-    </div>
+    <h1 class="page-title">Login</h1>
+
+    {{ form()->create() }}
+    {{ form()->control('email') }}
+    {{ form()->control('password') }}
+    {{ form()->submit('Login', ['class' => 'btn btn-primary']) }}
+    {{ form()->end() }}
 
 @endsection

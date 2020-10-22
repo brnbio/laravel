@@ -16,14 +16,14 @@
                             {{ auth()->user()->name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {{ html()->postlink('#', __('Logout'), ['class' => 'dropdown-item']) }}
+                            {{ html()->postlink(route('logout'), __('Logout'), ['class' => 'dropdown-item']) }}
                         </div>
                     </li>
                 @endauth
 
                 @guest
                     <li class="nav-item">
-                        {{ html()->link('#', __('Login'), ['class' => 'nav-link']) }}
+                        {{ html()->link(route('login'), __('Login'), ['class' => 'nav-link']) }}
                     </li>
                 @endguest
 

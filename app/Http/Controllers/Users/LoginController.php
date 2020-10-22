@@ -2,34 +2,81 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Core\Users;
+namespace App\Http\Controllers\Users;
 
-use App\Http\Controllers\Controller;
+use App\Controller;
+use App\Http\Requests\Users\LoginRequest;
+use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 /**
  * Class LoginController
- * @package App\Http\Controllers\Core\Users
+ *
+ * @package App\Http\Controllers\Users
+ *
+ * TODO: ThrottleLogin (https://github.com/laravel/ui/blob/3.x/auth-backend/ThrottlesLogins.php)
  */
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
-
     /**
-     * @return View
+     * @return Renderable
      */
-    public function showLoginForm(): Renderable
+    public function __invoke(): Renderable
     {
-        return view('core.users.login');
+        return view('users.login');
     }
 
     /**
-     * @return string
+     * @param LoginRequest $request
+     * @return RedirectResponse
+     * @throws ValidationException
      */
-    public function redirectTo(): string
+    public function login(LoginRequest $request): RedirectResponse
     {
-        return route('home');
+        if ( !$this->attemptLogin($request->validated(), $request->filled('remember'))) {
+            throw ValidationException::withMessages([
+                User::ATTRIBUTE_EMAIL => [trans('auth.failed')],
+            ]);
+        }
+
+        return $this->sendLoginResponse($request);
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::guard()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('home');
+    }
+
+    /**
+     * @param array $credentials
+     * @param bool $remember
+     * @return bool
+     */
+    protected function attemptLogin(array $credentials, bool $remember = false): bool
+    {
+        return Auth::guard()->attempt($credentials, $remember);
+    }
+
+    /**
+     * @param LoginRequest $request
+     * @return RedirectResponse
+     */
+    protected function sendLoginResponse(LoginRequest $request): RedirectResponse
+    {
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('home'));
     }
 }
