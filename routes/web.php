@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Core;
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
-#Route::get ('/', Core\HomeController::class)->name('home');
+Route::get ('/', Controllers\HomeController::class)->name('home');
 
 #Route::get ('/users/login', [Core\Users\LoginController::class, 'showLoginForm'])->name('core.users.login');
 #Route::post('/users/login', [Core\Users\LoginController::class, 'login']);
