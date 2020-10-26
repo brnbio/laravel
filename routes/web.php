@@ -20,6 +20,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get ('/profile', Controllers\Users\ProfileController::class)->name('profile');
     Route::post('/profile', [Controllers\Users\ProfileController::class, 'store']);
     Route::post('/profile/password', [Controllers\Users\ProfileController::class, 'updatePassword'])->name('profile.update-password');
+    Route::get ('/profile/notifications', Controllers\Users\NotificationsController::class)->name('profile.notifications');
+    Route::post('/profile/notifications/mark-all-read', [Controllers\Users\NotificationsController::class, 'markAllAsRead'])->name('profile.notifications.mark-all-read');
 });
 
 # tests

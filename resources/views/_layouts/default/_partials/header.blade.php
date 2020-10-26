@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="#">{{ config('app.name') }}</a>
+        <a class="navbar-brand" href="/">{{ config('app.name') }}</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
             <span class="navbar-toggler-icon"></span>
@@ -11,6 +11,9 @@
             <ul class="navbar-nav ml-auto">
 
                 @auth
+                    <li class="nav-item">
+                        {{ html()->link(route('profile.notifications'), html()->icon('fas fa-bell') . ' (' . auth()->user()->unreadNotifications()->count() . ')', ['class' => 'nav-link']) }}
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
                             {{ auth()->user()->name }}

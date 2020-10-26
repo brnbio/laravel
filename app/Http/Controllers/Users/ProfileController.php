@@ -8,6 +8,7 @@ use App\Controller;
 use App\Http\Requests\Users\ProfileRequest;
 use App\Http\Requests\Users\UpdatePasswordRequest;
 use App\Models\User;
+use App\Notifications\Users\UpdatePasswordNotification;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
@@ -66,6 +67,7 @@ class ProfileController extends Controller
 
         if ($user->save()) {
             flash()->success(__('Profile saved.'));
+            $user->notify(new UpdatePasswordNotification());
         } else {
             flash()->error(__('An error occurred.'));
         }

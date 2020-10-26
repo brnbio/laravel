@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Model;
+use App\Notifications\Users\ResetPasswordNotification;
 use Exception;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
-use App\Notifications\Users\ResetPasswordNotification;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\HasDatabaseNotifications;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -37,6 +38,7 @@ class User extends Model implements
     use Authenticatable;
     use Authorizable;
     use CanResetPassword;
+    use HasDatabaseNotifications;
     use HasFactory;
     use MustVerifyEmail;
     use Notifiable;
