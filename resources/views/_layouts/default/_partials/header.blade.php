@@ -16,6 +16,7 @@
                             {{ auth()->user()->name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {{ html()->link(route('profile'), __('Profile'), ['class' => 'dropdown-item']) }}
                             {{ html()->postlink(route('logout'), __('Logout'), ['class' => 'dropdown-item']) }}
                         </div>
                     </li>

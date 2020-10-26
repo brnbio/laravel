@@ -1,7 +1,9 @@
 # TODO
 
-- users forgot-password and reset
-- mail template
-- user profile edit
 - notifications database
 - tests für login/logout
+- 2FA
+- browser sessions (wie bei jetstream)
+- account löschen
+- livewire
+- toasts als flash-message

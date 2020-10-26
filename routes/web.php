@@ -17,5 +17,16 @@ Route::post('/reset-password/{token}', [Controllers\Users\ResetPasswordControlle
 
 # auth routes
 Route::middleware(['auth'])->group(function() {
-    //
+    Route::get ('/profile', Controllers\Users\ProfileController::class)->name('profile');
+    Route::post('/profile', [Controllers\Users\ProfileController::class, 'store']);
+    Route::post('/profile/password', [Controllers\Users\ProfileController::class, 'updatePassword'])->name('profile.update-password');
+});
+
+# tests
+Route::get('/mail', function () {
+
+    $user = \App\Models\User::all()->first();
+    $notification = new \App\Notifications\Users\ResetPasswordNotification(\Illuminate\Support\Str::random(40));
+
+    return $notification->toMail($user);
 });

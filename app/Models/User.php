@@ -46,6 +46,8 @@ class User extends Model implements
     public const ATTRIBUTE_EMAIL = 'email';
     public const ATTRIBUTE_EMAIL_VERIFIED_AT = 'email_verified_at';
     public const ATTRIBUTE_PASSWORD = 'password';
+    public const ATTRIBUTE_NEW_PASSWORD = 'new_password';
+    public const ATTRIBUTE_NEW_PASSWORD_CONFIRMATION = 'new_password_confirmation';
     public const ATTRIBUTE_REMEMBER_TOKEN = 'remember_token';
     public const ATTRIBUTE_RESET_TOKEN = 'token';
 
