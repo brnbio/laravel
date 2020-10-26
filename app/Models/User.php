@@ -8,6 +8,7 @@ use App\Model;
 use Exception;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
+use App\Notifications\Users\ResetPasswordNotification;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -46,6 +47,7 @@ class User extends Model implements
     public const ATTRIBUTE_EMAIL_VERIFIED_AT = 'email_verified_at';
     public const ATTRIBUTE_PASSWORD = 'password';
     public const ATTRIBUTE_REMEMBER_TOKEN = 'remember_token';
+    public const ATTRIBUTE_RESET_TOKEN = 'token';
 
     /**
      * @var string[]
@@ -78,5 +80,14 @@ class User extends Model implements
         }
 
         return parent::save($options);
+    }
+
+    /**
+     * @param string $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
