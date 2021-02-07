@@ -1,16 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-@import 'variables';
-
-@import '~bootstrap/scss/bootstrap';
+@import '~halfmoon/css/halfmoon-variables.min.css';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 
-.page-title {
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-  color: $btn-padding-x;
-}
+@import 'variables';

@@ -3,15 +3,22 @@
 <head>
     @include('_layouts.default._partials.head')
 </head>
-<body id="app">
+<body class="with-custom-webkit-scrollbars with-custom-css-scrollbars"
+      data-dm-shortcut-enabled="true"
+      data-sidebar-shortcut-enabled="true"
+      data-set-preferred-mode-onload="true">
 
-    @include('_layouts.default._partials.header')
+    <div class="page-wrapper with-navbar with-sidebar"
+         data-sidebar-type="full-height overlayed-sm-and-down">
 
-    <div class="content">
-        <div class="container-fluid">
-            @include('flash::message')
+        @include('_layouts.default._partials.flash')
+        @include('_layouts.default._partials.navbar')
+        @include('_layouts.default._partials.sidebar')
+
+        <div class="content-wrapper">
             @yield('content')
         </div>
+
     </div>
 
     @include('_layouts.default._partials.footer')
