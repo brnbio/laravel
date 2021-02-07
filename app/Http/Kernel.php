@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
-use App\Http\Middleware\CheckForMaintenanceMode;
 use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TrimStrings;
+use App\Http\Middleware\TrustHosts;
 use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\VerifyCsrfToken;
+use Fruitcake\Cors\HandleCors;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
@@ -29,6 +31,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 /**
  * Class Kernel
+ *
  * @package App\Http
  */
 class Kernel extends HttpKernel
@@ -37,11 +40,13 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        CheckForMaintenanceMode::class,
-        ConvertEmptyStringsToNull::class,
+        TrustHosts::class,
         TrustProxies::class,
-        TrimStrings::class,
+        HandleCors::class,
+        PreventRequestsDuringMaintenance::class,
         ValidatePostSize::class,
+        TrimStrings::class,
+        ConvertEmptyStringsToNull::class,
     ];
 
     /**
@@ -58,8 +63,8 @@ class Kernel extends HttpKernel
             VerifyCsrfToken::class,
         ],
         'api' => [
-            'throttle:60,1',
-            'bindings',
+            'throttle:api',
+            SubstituteBindings::class,
         ],
     ];
 
@@ -69,7 +74,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth'             => Authenticate::class,
         'auth.basic'       => AuthenticateWithBasicAuth::class,
-        'bindings'         => SubstituteBindings::class,
         'cache.headers'    => SetCacheHeaders::class,
         'can'              => Authorize::class,
         'guest'            => RedirectIfAuthenticated::class,
@@ -77,18 +81,5 @@ class Kernel extends HttpKernel
         'signed'           => ValidateSignature::class,
         'throttle'         => ThrottleRequests::class,
         'verified'         => EnsureEmailIsVerified::class,
-    ];
-
-    /**
-     * @var array
-     */
-    protected $middlewarePriority = [
-        StartSession::class,
-        ShareErrorsFromSession::class,
-        Authenticate::class,
-        ThrottleRequests::class,
-        AuthenticateSession::class,
-        SubstituteBindings::class,
-        Authorize::class,
     ];
 }

@@ -8,17 +8,18 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 /**
  * Class Handler
+ *
  * @package App\Exceptions
  */
 class Handler extends ExceptionHandler
 {
     /**
-     * @var array
+     * @var string[]
      */
     protected $dontReport = [];
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $dontFlash = [
         'password',

@@ -22,9 +22,9 @@ class UserFactory extends Factory
     protected $model = User::class;
 
     /**
-     * @return array|void
+     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             User::ATTRIBUTE_NAME              => $this->faker->name,

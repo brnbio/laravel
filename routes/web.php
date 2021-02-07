@@ -23,12 +23,3 @@ Route::middleware(['auth'])->group(function() {
     Route::get ('/profile/notifications', Controllers\Users\NotificationsController::class)->name('profile.notifications');
     Route::post('/profile/notifications/mark-all-read', [Controllers\Users\NotificationsController::class, 'markAllAsRead'])->name('profile.notifications.mark-all-read');
 });
-
-# tests
-Route::get('/mail', function () {
-
-    $user = \App\Models\User::all()->first();
-    $notification = new \App\Notifications\Users\ResetPasswordNotification(\Illuminate\Support\Str::random(40));
-
-    return $notification->toMail($user);
-});

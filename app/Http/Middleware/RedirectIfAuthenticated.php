@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 /**
  * Class RedirectIfAuthenticated
+ *
  * @package App\Http\Middleware
  */
 class RedirectIfAuthenticated
@@ -18,13 +19,17 @@ class RedirectIfAuthenticated
     /**
      * @param Request $request
      * @param Closure $next
-     * @param string|null $guard
+     * @param mixed ...$guards
      * @return RedirectResponse|mixed
      */
-    public function handle(Request $request, Closure $next, string $guard = null)
+    public function handle(Request $request, Closure $next, ...$guards)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect()->route('home');
+        $guards = empty($guards) ? [null] : $guards;
+
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
+                return redirect()->route('home');
+            }
         }
 
         return $next($request);
