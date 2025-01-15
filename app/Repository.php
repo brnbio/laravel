@@ -129,13 +129,13 @@ abstract class Repository
     public function options(string $option = 'name', ?string $key = null, array $except = []): array
     {
         $options = $this->query()
-            ->when($except, function (Builder $query) use ($except) {
+            ->when($except, function(Builder $query) use ($except) {
                 $query->whereNotIn($this->model->getKeyName(), $except);
             })
             ->get();
 
         return $options
-            ->map(function (Model $model) use ($option, $key) {
+            ->map(function(Model $model) use ($option, $key) {
                 return [
                     'id'   => $key ? $model->{$key} : $model->getKey(),
                     'text' => $model->{$option},

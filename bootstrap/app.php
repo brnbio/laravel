@@ -14,10 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([
         App\Providers\AppServiceProvider::class,
     ])
-    ->withMiddleware(function (Middleware $middleware) {
+    ->withMiddleware(function(Middleware $middleware) {
         //
     })
-    ->withExceptions(function (Exceptions $exceptions) {
+    ->withExceptions(function(Exceptions $exceptions) {
         //
     })
     ->create();

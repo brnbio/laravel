@@ -27,7 +27,7 @@ trait BelongsToUser
      */
     public static function bootBelongsToUser(): void
     {
-        static::creating(function ($model) {
+        static::creating(function($model) {
             if (empty($model->user_id)) {
                 $model->user_id = auth()->id();
             }
