@@ -9,6 +9,10 @@
             "anonymous_classes_opening_brace": "next_line_unless_newline_at_signature_end"
         },
         "declare_strict_types": true,
+        "function_declaration": {
+            "closure_fn_spacing": "none",
+            "closure_function_spacing": "none"
+        },
         "new_with_parentheses": {
             "anonymous_class": false
         },
