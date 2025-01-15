@@ -1,0 +1,17 @@
+{
+    "preset": "psr12",
+    "rules": {
+        "array_indentation": true,
+        "array_syntax": {
+            "syntax": "short"
+        },
+        "braces_position": {
+            "anonymous_classes_opening_brace": "next_line_unless_newline_at_signature_end"
+        },
+        "declare_strict_types": true,
+        "new_with_parentheses": {
+            "anonymous_class": false
+        },
+        "phpdoc_no_package": false
+    }
+}
