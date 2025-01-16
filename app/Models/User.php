@@ -31,7 +31,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use HasFactory;
     use Notifiable;
 
-    public const string TABLE = 'users';
+    public const string TABLE = 'core_users';
 
     public const string ATTRIBUTE_NAME           = 'name';
     public const string ATTRIBUTE_EMAIL          = 'email';
