@@ -23,7 +23,7 @@ function submit() {
         <div>
             <h1>Passwort vergessen</h1>
             <form @submit.prevent="submit">
-                <FormControl name="email" label="E-Mail-Adresse" required autofocus autocomplete="username" type="email" />
+                <FormControl name="email" label="E-Mail-Adresse" required autofocus type="email" />
                 <button type="submit" :disabled="form.processing" class="btn btn-primary">
                     Passwort zurücksetzen
                 </button>

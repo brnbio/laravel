@@ -23,7 +23,7 @@ function toggle() {
 <template>
 
     <div class="input-group mb-3">
-        <div class="form-floating">
+        <div class="form-floating is-invalid">
             <input v-model="form[name]"
                    :type="passwordVisible ? 'text':  'password'"
                    class="form-control border-end-0"
@@ -34,7 +34,6 @@ function toggle() {
             <label class="form-label" :for="name">
                 {{ label }}
             </label>
-
         </div>
         <span class="input-group-text bg-white text-muted" @click="toggle" style="cursor: pointer;">
             <Icon name="visibility" v-if="!passwordVisible" />
