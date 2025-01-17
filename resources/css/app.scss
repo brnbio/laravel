@@ -1,6 +1,7 @@
 @use 'material-symbols/index.css';
 @use 'bootstrap/scss/bootstrap' with (
-    $primary: #4B5563
+    $primary: #4B5563,
+    $link-decoration: none
 );
 
 .form-floating {

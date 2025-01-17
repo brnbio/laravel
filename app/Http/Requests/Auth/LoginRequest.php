@@ -39,7 +39,6 @@ class LoginRequest extends FormRequest
         return [
             self::FIELD_USERNAME => [
                 'required',
-                'string',
                 Rule::email(),
             ],
             self::FIELD_PASSWORD => [

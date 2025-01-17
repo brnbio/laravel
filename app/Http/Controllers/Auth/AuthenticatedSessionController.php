@@ -22,9 +22,7 @@ class AuthenticatedSessionController
      */
     public function create(): Response
     {
-        return inertia('auth/login', [
-            'status' => session('status'),
-        ]);
+        return inertia('auth/login');
     }
 
     /**

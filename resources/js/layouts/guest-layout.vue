@@ -19,7 +19,9 @@ const appName = computed(() => page.props.app.name);
     </nav>
 
     <main class="d-flex justify-content-center align-items-center min-vh-100">
-        <slot />
+        <div class="w-25">
+            <slot />
+        </div>
     </main>
 
 </template>

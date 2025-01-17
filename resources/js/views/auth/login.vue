@@ -1,10 +1,10 @@
 <script setup>
 
-import FormControl  from '@/components/forms/form-control.vue';
-import FormPassword from '@/components/forms/form-password.vue';
-import GuestLayout  from '@/layouts/guest-layout.vue';
-import { useForm }  from '@inertiajs/vue3';
-import { provide }  from 'vue';
+import FormControl       from '@/components/forms/form-control.vue';
+import FormPassword      from '@/components/forms/form-password.vue';
+import GuestLayout       from '@/layouts/guest-layout.vue';
+import { Link, useForm } from '@inertiajs/vue3';
+import { provide }       from 'vue';
 
 const form = useForm({
     email: null,
@@ -14,7 +14,6 @@ const form = useForm({
 provide('form', form);
 
 function login() {
-
     form.post(route('login'), {
         onFinish: () => form.reset('password'),
     });
@@ -36,9 +35,9 @@ function login() {
                     <button type="submit" :disabled="form.processing" class="btn btn-primary">
                         Login
                     </button>
-                    <!--                    <Link :href="route('forgot-password')" class="small text-muted">-->
-                    <!--                        Passwort vergessen?-->
-                    <!--                    </Link>-->
+                    <Link :href="route('forgot-password')" class="small text-muted">
+                        Passwort vergessen?
+                    </Link>
                 </div>
             </form>
         </div>
