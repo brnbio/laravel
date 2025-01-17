@@ -8,8 +8,10 @@ import "bootstrap";
 window.axios = axios;
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
 createInertiaApp({
-    title: (title) => `${ title ? title + " - " : "" }App Name`,
+    title: (title) => `${ title ? title + " - " : "" }${ appName }`,
     resolve: (name) =>
         resolvePageComponent(
             `./views/${ name }.vue`,

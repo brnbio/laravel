@@ -1,10 +1,10 @@
 <script setup>
 
-import FormControl  from '@/components/forms/form-control.vue';
-import FormPassword from '@/components/forms/form-password.vue';
-import GuestLayout  from '@/layouts/guest-layout.vue';
-import { useForm }  from '@inertiajs/vue3';
-import { provide }  from 'vue';
+import FormControl       from '@/components/forms/form-control.vue';
+import FormPassword      from '@/components/forms/form-password.vue';
+import GuestLayout       from '@/layouts/guest-layout.vue';
+import { Link, useForm } from '@inertiajs/vue3';
+import { provide }       from 'vue';
 
 const props = defineProps({
     token: {
@@ -44,6 +44,9 @@ function submit() {
                 <button type="submit" :disabled="form.processing" class="btn btn-primary">
                     Passwort speichern
                 </button>
+                <Link href="/" class="btn btn-link">
+                    Abbrechen
+                </Link>
             </form>
         </div>
     </GuestLayout>
