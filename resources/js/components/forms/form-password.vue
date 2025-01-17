@@ -1,6 +1,6 @@
 <script setup>
 
-import Icon            from '@components/icon';
+import Icon            from '@/components/icon.vue';
 import { inject, ref } from 'vue';
 
 defineOptions({
@@ -22,11 +22,8 @@ function toggle() {
 </script>
 <template>
 
-    <div class="form-group">
-        <label class="form-label" :for="name">
-            {{ label }}
-        </label>
-        <div class="input-group">
+    <div class="input-group mb-3">
+        <div class="form-floating">
             <input v-model="form[name]"
                    :type="passwordVisible ? 'text':  'password'"
                    class="form-control border-end-0"
@@ -34,11 +31,15 @@ function toggle() {
                    :id="name"
                    :placeholder="label"
                    v-bind="$attrs" />
-            <span class="input-group-text fs-5 bg-white text-muted" @click="toggle" style="cursor: pointer;">
-                <Icon name="show" inline v-if="!passwordVisible" />
-                <Icon name="hide" inline v-if="passwordVisible" />
-            </span>
+            <label class="form-label" :for="name">
+                {{ label }}
+            </label>
+
         </div>
+        <span class="input-group-text bg-white text-muted" @click="toggle" style="cursor: pointer;">
+            <Icon name="visibility" v-if="!passwordVisible" />
+            <Icon name="visibility_off" v-if="passwordVisible" />
+        </span>
         <div class="invalid-feedback" v-if="form.errors[name]">
             {{ form.errors[name] }}
         </div>

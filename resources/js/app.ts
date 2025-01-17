@@ -1,12 +1,15 @@
-import "./bootstrap";
-
 import { createInertiaApp } from "@inertiajs/vue3";
+import axios from "axios";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createApp, DefineComponent, h } from "vue";
 import { ZiggyVue } from "ziggy-js";
+import "bootstrap";
+
+window.axios = axios;
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 createInertiaApp({
-    title: (title) => `${ title ? title + ' - ' : '' }App Name`,
+    title: (title) => `${ title ? title + " - " : "" }App Name`,
     resolve: (name) =>
         resolvePageComponent(
             `./views/${ name }.vue`,

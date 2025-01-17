@@ -10,4 +10,7 @@ export type PageProps<
     auth: {
         user: User;
     };
+    app: {
+        name: string;
+    }
 };

@@ -1,3 +1,21 @@
+@use 'material-symbols/index.css';
 @use 'bootstrap/scss/bootstrap' with (
     $primary: #4B5563
 );
+
+.form-floating {
+    .supporting-text, .invalid-feedback {
+        padding-inline-start: 0.75rem;
+        font-size: 12px;
+        margin-top: 0.25rem;
+    }
+    .supporting-text {
+        color: bootstrap.$gray-600;
+    }
+}
+
+.material-symbols-outlined {
+    font-weight: inherit;
+    font-size: inherit;
+    color: inherit;
+}
