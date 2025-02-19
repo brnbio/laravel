@@ -16,7 +16,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            "@/": path.resolve(rootPath, "./resources/js/"),
+            "@": path.resolve(rootPath, "./resources/js/"),
             "ziggy-js": "/vendor/tightenco/ziggy/src/js",
         },
         extensions: [".ts", ".tsx", ".vue", ".js"],
