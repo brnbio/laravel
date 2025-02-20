@@ -17,6 +17,7 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": path.resolve(rootPath, "./resources/js/"),
+            "inertia-modal": "/vendor/emargareten/inertia-modal",
             "ziggy-js": "/vendor/tightenco/ziggy/src/js",
         },
         extensions: [".ts", ".tsx", ".vue", ".js"],

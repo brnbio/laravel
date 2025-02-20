@@ -4,6 +4,7 @@
     "require": {
         "php": "^8.4",
         "ext-pdo": "*",
+        "emargareten/inertia-modal": "^1.4",
         "inertiajs/inertia-laravel": "^2.0",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^11.31",

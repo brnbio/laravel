@@ -15,6 +15,9 @@
             "@/*": [
                 "./resources/js/*"
             ],
+            "inertia-modal": [
+                "./vendor/emargareten/inertia-modal"
+            ],
             "ziggy-js": [
                 "./vendor/tightenco/ziggy"
             ]
